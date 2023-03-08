@@ -1,57 +1,46 @@
-class CustomSelect {
-  constructor(originalSelect) {
-    this.originalSelect = originalSelect;
-    this.customSelect = document.createElement("div");
-    this.customSelect.classList.add("select");
+/* -- Glow effect -- */
 
-    this.originalSelect.querySelectorAll("option").forEach((optionElement) => {
-      const itemElement = document.createElement("div");
+const blob = document.getElementById("blob");
 
-      itemElement.classList.add("select__item");
-      itemElement.textContent = optionElement.textContent;
-      this.customSelect.appendChild(itemElement);
-
-      if (optionElement.selected) {
-        this._select(itemElement);
-      }
-
-      itemElement.addEventListener("click", () => {
-        if (
-          this.originalSelect.multiple &&
-          itemElement.classList.contains("select__item--selected")
-        ) {
-          this._deselect(itemElement);
-        } else {
-          this._select(itemElement);
-        }
-      });
-    });
-
-    this.originalSelect.insertAdjacentElement("afterend", this.customSelect);
-    this.originalSelect.style.display = "none";
-  }
-
-  _select(itemElement) {
-    const index = Array.from(this.customSelect.children).indexOf(itemElement);
-
-    if (!this.originalSelect.multiple) {
-      this.customSelect.querySelectorAll(".select__item").forEach((el) => {
-        el.classList.remove("select__item--selected");
-      });
-    }
-
-    this.originalSelect.querySelectorAll("option")[index].selected = true;
-    itemElement.classList.add("select__item--selected");
-  }
-
-  _deselect(itemElement) {
-    const index = Array.from(this.customSelect.children).indexOf(itemElement);
-
-    this.originalSelect.querySelectorAll("option")[index].selected = false;
-    itemElement.classList.remove("select__item--selected");
-  }
+window.onpointermove = event => { 
+  const { clientX, clientY } = event;
+  
+  blob.animate({
+    left: `${clientX}px`,
+    top: `${clientY}px`
+  }, { duration: 3000, fill: "forwards" });
 }
 
-document.querySelectorAll(".custom-select").forEach((selectElement) => {
-  new CustomSelect(selectElement);
-});
+/* -- Text effect -- */
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let interval = null;
+
+const screen = document.querySelector(".screen"),
+      name = document.querySelector(".name");
+
+screen.onmouseenter = event => {  
+  let iteration = 0;
+  
+  clearInterval(interval);
+  
+  interval = setInterval(() => {
+    name.innerText = name.innerText
+      .split("")
+      .map((letter, index) => {
+        if(index < iteration) {
+          return name.dataset.value[index];
+        }
+      
+        return letters[Math.floor(Math.random() * 26)]
+      })
+      .join("");
+    
+    if(iteration >= name.dataset.value.length){ 
+      clearInterval(interval);
+    }
+    
+    iteration += 1 / 3;
+  }, 30);
+}
