@@ -315,15 +315,3 @@ body {
   height: 1rem;
   line-height: 1rem;
 }
-
-@media (max-width: 767px) {
-  .screen-overlay {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  body {
-    zoom: 1.5;
-  }
-}
