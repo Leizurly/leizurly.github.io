@@ -315,3 +315,17 @@ body {
   height: 1rem;
   line-height: 1rem;
 }
+
+/* Disable glow effect on phones */
+@media only screen and (max-width: 767px) {
+  button:focus {
+    outline: none;
+  }
+}
+
+/* Zoom in on phones */
+@media only screen and (max-width: 767px) {
+  body {
+    zoom: 150%;
+  }
+}
