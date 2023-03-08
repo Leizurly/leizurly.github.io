@@ -44,3 +44,7 @@ screen.onmouseenter = event => {
     iteration += 1 / 3;
   }, 30);
 }
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    window.location.replace("https://leizurly.com/mobile");
+  }
