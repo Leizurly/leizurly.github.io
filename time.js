@@ -1,5 +1,3 @@
-
-
 function calculate() {
     const cost = document.getElementById('cost').value;
     const wage = document.getElementById('wage').value;
@@ -7,6 +5,13 @@ function calculate() {
 
     let result = '';
     let resultDays = '';
+
+    // Check if all three values are filled
+    if (cost && wage && time) {
+        result = 'Please enter only two values.';
+        document.getElementById('result').innerHTML = result;
+        return;
+    }
 
     if (cost && wage) {
         const hours = cost / wage;
@@ -30,4 +35,3 @@ function calculate() {
     document.getElementById('result').innerHTML = result;
     document.getElementById('resultDays').innerHTML = resultDays;
 }
-
